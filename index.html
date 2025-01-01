@@ -3,34 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click Me</title>
+    <title>Link</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
         }
-        .button {
-            padding: 20px 50px;
-            font-size: 36px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 10px;
+
+        button {
+            font-size: 18px;
+            padding: 15px;
+            margin: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
-        .button:hover {
-            background-color: #45a049;
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .hidden-button {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <a href="https://www.amazon.com/TIMMKOO-Bluetooth-TouchScreen-Portable-Recorder/dp/B07X8V9B8J/ref=sr_1_1?crid=10INSOEBVRSMZ&dib=eyJ2IjoiMSJ9.anYXjXBfu4bws7zaB9PwfZS0LZUeHkE_D7UUchld1fw6Z3MaHa9F5ZtNW-gQuOkb6utcT-_vWPw5PLZSu4SKg31VmG-K-a1KwFWse2g4U2L8aqol7jFe25hkEWa67VRdvl-GoL4BSHrT_oEpmR0YoV-N--JAFmSaS5goyWmR25eaVIZxgdFNe0d3yZawJPl9nqm8vnFwuzd1kNpJoPqwsiq2t5svhg1Jx-CKwKPzjQtvqe3RDh_xLrcvvVp6oyzVHFPNNJjf3gwgZBv-xsQWYabBDv_VeW4VA82wO5kOE5Q.u4-obId2Zqrf7qrsRySuFc0iAbDx1BywQAXgMciRfGs&dib_tag=se&keywords=timmkoo%2Bq3%2Bmp3%2Bplayer&qid=1728845280&s=electronics&sprefix=timkoo%2Bq3%2Bmp3%2Bplaye%2Celectronics%2C164&sr=1-1&th=1" target="_blank">
-        <button class="button">Click Me</button>
-    </a>
+    <h1>Links</h1>
+
+    <!-- Container for dynamic buttons -->
+    <div class="button-container" id="button-container">
+        <!-- These buttons will be shown based on the keypress events -->
+    </div>
+
+    <script>
+        let showChromebox = false;
+        let showWindows = false;
+
+        document.addEventListener("keydown", function(event) {
+            // Reset button states each time key is pressed
+            if (event.key === "1" && !showChromebox) {
+                // When '1' is pressed, show the Chromebox button
+                showChromebox = true;
+                let chromeboxButton = document.createElement("button");
+                chromeboxButton.textContent = "Chromebox";
+                chromeboxButton.onclick = function() {
+                    window.location.href = 'https://www.amazon.com/HP-J5N50UT-Chromebox-Desktop-Computer/dp/B07RB2JYYK?crid=1D9SEZJ6BW5Y2&dib=eyJ2IjoiMSJ9.94oXBUm_lL8IXYdhmQ42F6B6Ox0oJet0d-9pM3lomBJjJ8NvG5MDDo82fDgKm1e9ISupZaxsRnCtaowvRwdbxHUkVhQ07sFaa1_js0AOlP85LFfiC9pkSc-XWSUMCuuJX_e6k4MHoMf_ZE7ecC6dl76k-tw5QJIG52U3GgxPpozeUaY3gd8LwC48i-nkrD9TMXh4qCI11a4Js6Y_HnHGnDZRoEnSrsEsxVKs5MnCqKr5-s6IBjXp6bjsJm3LbGI8Ouo709w3xjN0Dc86kox2OR1whCsHI8kroOczM8gfQbj0dBaANGffGX3v-S5YDbr-6udgrUuY_wwt08psoRhjZ0SJyadCAcAfIeJFZbyEs2s.Oq3Yyh_bvUYSqN2pcXNx10i6zM2Lb6Ns8T8wMjbLxrc&dib_tag=se&keywords=chromebox&qid=1735598242&s=electronics&sprefix=chromebo%2Celectronics%2C201&sr=1-6';
+                };
+                document.getElementById("button-container").appendChild(chromeboxButton);
+            }
+
+            if (event.key === "7" && !showWindows) {
+                // When '7' is pressed, show the Windows button
+                showWindows = true;
+                let windowsButton = document.createElement("button");
+                windowsButton.textContent = "Windows";
+                windowsButton.onclick = function() {
+                    window.location.href = 'https://www.amazon.com/Lenovo-ThinkCentre-Desktop-i5-4570T-DisplayPort/dp/B08796TD4J?crid=15JXQSYSNSY7C&dib=eyJ2IjoiMSJ9.QwlqMPJorX4xAoL3jDzaPoGhpHWdK2WjCJsGys8MojbTwFCXc8PjchWPV3jvA5gQcyA5XqiOXt4nG8zwoZ09I0q3zRbZ-a38OFnebCUzlMCASV_5F6Rl9S33qb231-BDSW87xjLtNGfm9h9HiBLLDXvjR9crHskPcohBz0lD77Qfp7k3E1WnJFdSqmDk02fSrvX2B3vUMqYwxXjGA9ktzOEEKYUladIdfcVb2h5wIAQF64F3yn8oh1bvGRkvoJnYAJyvTsmOEzTxox1uLEcM8pz2EahHBE3mrH4rdDk4NrMwk0J1LYeurm6lTVgzhAAwfBJWnj92GhA_2ljUAK8N8c2PeTDgFI-EFifulP-zhI8.TYfCWdDW9Stj7LNYcgtlWn5w1huv35ucARsNqayp9D4&dib_tag=se&keywords=mini+pc&qid=1735598277&refinements=p_36%3A-9800&rnid=2421879011&s=electronics&sprefix=mini%2Celectronics%2C558&sr=1-2';
+                };
+                document.getElementById("button-container").appendChild(windowsButton);
+            }
+
+            if (event.key === "0" && !showWindows) {
+                // When '0' is pressed, show another Windows button
+                let windowsButton = document.createElement("button");
+                windowsButton.textContent = "Windows";
+                windowsButton.onclick = function() {
+                    window.location.href = 'https://www.amazon.com/HP-Prodesk-Computer-i5-7500T-Renewed/dp/B07S24VMLZ?crid=10SI7GQH58HT8&dib=eyJ2IjoiMSJ9.AWPB9VSvP9BRWRFXMF5Ppa3wOiEYmL38mBSFZYUIIe1CDzeN5LrtLv4R10gYw62FMOA7RMFw9Vyu8yxREMTxMSb6lNY9md18qCZoilkNadiwIxBJ-KGFq18k6WnMdClv9JW6S4KBKbfjdGX2P4lsoytsdPhE98OYzeKi5A6aOsUOGlYn0Tqkrk0Oh9iEMzJA_8Rn619asBxxU0V4SNhkM119rlt_dmjVXdtMnAYhY1y59fXDgaSyxntVhNQNN_rt3dRaElgom4ldC3TO8V2rSxXmhvB6naNdL3cHKWpr4UeGf5B5_KTe93itC_Nx6HM-tUGclpXQ5EVnfxgKYWXYTTuivGTBFvhElThxwRWI-X8.IgEW1vA3h8G8bYuMdjatH-wWHLi75yH9kD2WcbP7QW8&dib_tag=se&keywords=mini+pc&qid=1735693913&refinements=p_36%3A-15500%2Cp_n_feature_four_browse-bin%3A2289792011&rnid=2421879011&s=electronics&sprefix=mini+pc%2Celectronics%2C205&sr=1-4';
+                };
+                document.getElementById("button-container").appendChild(windowsButton);
+            }
+        });
+    </script>
 </body>
 </html>
